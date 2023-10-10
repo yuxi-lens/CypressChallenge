@@ -13,5 +13,5 @@ Then("the user should be logged in successfully", () => {
 });
 
 Then("the products should be sorted by {string}", (order) => {
-  landingPage.verifyProductsSortedByPrice(order);
+  landingPage.verifyProductsSorted(order);
 });

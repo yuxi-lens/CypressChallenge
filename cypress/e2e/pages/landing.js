@@ -1,3 +1,5 @@
+import { SORT_CONFIGS } from "../../support/utils/sortConfig";
+
 class LandingPage {
   locators = {
     productsTitle: "span.title",
@@ -19,53 +21,29 @@ class LandingPage {
     cy.get(this.locators.sortingSelect).select(order);
   }
 
-  verifyProductsSortedByPrice(order) {
-    const items = [];
-    cy.get(this.locators.priceLabels)
-      .each(($el) => {
-        cy.wrap($el)
-          .invoke("text")
-          .then((text) => {
-            items.push(parseFloat(text.match(/\d+/)[0]));
-          });
-      })
-      .then(() => {
-        if (order.includes("low to high")) {
-          const isInAscendingOrder = items
-            .slice(1)
-            .every((item, index) => item >= items[index]);
-          expect(isInAscendingOrder).to.be.true;
-        } else if (order.includes("high to low")) {
-          const isInDescendingOrder = items
-            .slice(1)
-            .every((item, index) => item <= items[index]);
-          expect(isInDescendingOrder).to.be.true;
-        }
-      });
-  }
+  verifyProductsSorted(order) {
+    const type = Object.keys(SORT_CONFIGS).find((keyType) =>
+      order.includes(keyType)
+    );
+    const match = order.match(/\((.+)\)/);
+    const direction = match[1];
 
-  verifyProductsSortedByName(order) {
+    const config = SORT_CONFIGS[type];
+
     const items = [];
-    cy.get(this.locators.nameLabels)
+    cy.get(this.locators[config.locator])
       .each(($el) => {
         cy.wrap($el)
           .invoke("text")
           .then((text) => {
-            items.push(text.trim());
+            items.push(config.parser(text));
           });
       })
       .then(() => {
-        if (order.includes("A to Z")) {
-          const isInAscendingOrder = items
-            .slice(1)
-            .every((item, index) => item.localeCompare(items[index]) >= 0);
-          expect(isInAscendingOrder).to.be.true;
-        } else if (order.includes("Z to A")) {
-          const isInDescendingOrder = items
-            .slice(1)
-            .every((item, index) => item.localeCompare(items[index]) <= 0);
-          expect(isInDescendingOrder).to.be.true;
-        }
+        const isInOrder = items
+          .slice(1)
+          .every((item, index) => config.orders[direction](item, items[index]));
+        expect(isInOrder).to.be.true;
       });
   }
 }
