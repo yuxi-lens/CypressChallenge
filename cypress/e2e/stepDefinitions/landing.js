@@ -7,7 +7,7 @@ When("the user sort products by {string}", (order) => {
   landingPage.sortProductsBy(order);
 });
 
-When("the user adds a product to the cart", () => {
+When("the user add a product to the cart", () => {
   landingPage.addProductToCart().then((productDetails) => {
     cy.wrap(productDetails.productPrice).as("selectedProductPrice");
     cy.wrap(productDetails.productName).as("selectedProductName");
@@ -15,6 +15,13 @@ When("the user adds a product to the cart", () => {
   });
 
   landingPage.clickCartButton();
+});
+
+When("the user add some products to the cart", () => {
+  landingPage.addMultipleProductsToCart().then((products) => {
+    cy.wrap(products).as("selectedProducts");
+    landingPage.clickCartButton();
+  });
 });
 
 Then("the user should be logged in successfully", () => {

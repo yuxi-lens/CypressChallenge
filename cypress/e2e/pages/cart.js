@@ -10,24 +10,30 @@ class CartPage {
     cy.get(this.locators.checkoutButton).click();
   }
 
-  verifyProductPrice(expectedPrice) {
-    cy.get(this.locators.productPrice).should("have.text", expectedPrice);
+  verifyProductPriceByIndex(expectedPrice, index = 0) {
+    cy.get(this.locators.productPrice)
+      .eq(index)
+      .should("have.text", expectedPrice);
   }
 
-  verifyProductName(expectedName) {
-    cy.get(this.locators.productName).should("have.text", expectedName);
+  verifyProductNameByIndex(expectedName, index = 0) {
+    cy.get(this.locators.productName)
+      .eq(index)
+      .should("have.text", expectedName);
   }
 
-  verifyProductDescription(expectedDescription) {
-    cy.get(this.locators.productDescription).should(
-      "have.text",
-      expectedDescription
-    );
+  verifyProductDescriptionByIndex(expectedDescription, index = 0) {
+    cy.get(this.locators.productDescription)
+      .eq(index)
+      .should("have.text", expectedDescription);
   }
-  verifyProductDetails(expectedPrice, expectedName, expectedDescription) {
-    this.verifyProductPrice(expectedPrice);
-    this.verifyProductName(expectedName);
-    this.verifyProductDescription(expectedDescription);
+
+  verifyIndividualProductDetails(products) {
+    products.forEach((product, index) => {
+      this.verifyProductPriceByIndex(product.productPrice, index);
+      this.verifyProductNameByIndex(product.productName, index);
+      this.verifyProductDescriptionByIndex(product.productDescription, index);
+    });
   }
 }
 

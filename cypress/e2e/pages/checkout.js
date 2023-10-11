@@ -47,33 +47,40 @@ class CheckoutPage {
     cy.get(this.locators.finishButton).click();
   }
 
-  verifyProductPrice(expectedPrice) {
-    cy.get(this.locators.productPrice).should("have.text", expectedPrice);
+  verifyProductPriceByIndex(expectedPrice, index = 0) {
+    cy.get(this.locators.productPrice)
+      .eq(index)
+      .should("have.text", expectedPrice);
   }
 
-  verifyProductName(expectedName) {
-    cy.get(this.locators.productName).should("have.text", expectedName);
+  verifyProductNameByIndex(expectedName, index = 0) {
+    cy.get(this.locators.productName)
+      .eq(index)
+      .should("have.text", expectedName);
   }
 
-  verifyProductDescription(expectedDescription) {
-    cy.get(this.locators.productDescription).should(
-      "have.text",
-      expectedDescription
-    );
+  verifyProductDescriptionByIndex(expectedDescription, index = 0) {
+    cy.get(this.locators.productDescription)
+      .eq(index)
+      .should("have.text", expectedDescription);
   }
 
-  verifyProductSubtotal(expectedPrice) {
+  verifyProductSubtotal(expectedSubtotal) {
     cy.get(this.locators.productSubtotalLabel).should(
       "contain.text",
-      expectedPrice
+      expectedSubtotal
     );
   }
 
-  verifyProductDetails(expectedPrice, expectedName, expectedDescription) {
-    this.verifyProductPrice(expectedPrice);
-    this.verifyProductName(expectedName);
-    this.verifyProductDescription(expectedDescription);
-    this.verifyProductSubtotal(expectedPrice);
+  verifyProductDetailsByIndex(
+    expectedPrice,
+    expectedName,
+    expectedDescription,
+    index = 0
+  ) {
+    this.verifyProductPriceByIndex(expectedPrice, index);
+    this.verifyProductNameByIndex(expectedName, index);
+    this.verifyProductDescriptionByIndex(expectedDescription, index);
   }
 
   verifyProductTotal() {

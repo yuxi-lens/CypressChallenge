@@ -92,7 +92,7 @@ class LandingPage {
       .then(() => {
         return cy
           .get(this.locators.productContainer)
-          .find('button:contains("Add to cart")')
+          .find("div.pricebar button")
           .eq(randomIndex)
           .click()
           .then(() => {
@@ -102,6 +102,86 @@ class LandingPage {
               productPrice: selectedProductPrice,
             };
           });
+      });
+  }
+
+  addProductToCartByIndex(index) {
+    let selectedProductName;
+    let selectedProductDescription;
+    let selectedProductPrice;
+
+    return cy
+      .get(this.locators.productContainer)
+      .find(this.locators.productName)
+      .eq(index)
+      .invoke("text")
+      .then((name) => {
+        selectedProductName = name;
+
+        return cy
+          .get(this.locators.productContainer)
+          .find(this.locators.productDescription)
+          .eq(index)
+          .invoke("text");
+      })
+      .then((description) => {
+        selectedProductDescription = description;
+
+        return cy
+          .get(this.locators.productContainer)
+          .find(this.locators.priceLabels)
+          .eq(index)
+          .invoke("text");
+      })
+      .then((priceText) => {
+        selectedProductPrice = priceText;
+      })
+      .then(() => {
+        return cy
+          .get(this.locators.productContainer)
+          .find("div.pricebar button")
+          .eq(index)
+          .click()
+          .then(() => {
+            return {
+              productName: selectedProductName,
+              productDescription: selectedProductDescription,
+              productPrice: selectedProductPrice,
+            };
+          });
+      });
+  }
+
+  addMultipleProductsToCart() {
+    const addedProducts = [];
+
+    return cy
+      .get(this.locators.productContainer)
+      .its("length")
+      .then((totalProducts) => {
+        const numberOfProductsToAdd =
+          Math.floor(Math.random() * (totalProducts - 1)) + 2;
+
+        const selectedIndices = [];
+        while (selectedIndices.length < numberOfProductsToAdd) {
+          const randomIndex = Math.floor(Math.random() * totalProducts);
+          if (selectedIndices.indexOf(randomIndex) === -1) {
+            selectedIndices.push(randomIndex);
+          }
+        }
+
+        let chain = cy.wrap(null);
+        selectedIndices.forEach((index) => {
+          chain = chain.then(() => {
+            return this.addProductToCartByIndex(index).then(
+              (productDetails) => {
+                addedProducts.push(productDetails);
+              }
+            );
+          });
+        });
+
+        return chain.then(() => addedProducts);
       });
   }
 
