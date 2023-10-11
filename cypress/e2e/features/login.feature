@@ -4,8 +4,8 @@ Background: Navigate to Login Page
 Given the user navigates to the login page
 
 Scenario Outline: Login user with valid credentials
-When the user send "<username>" and "<password>"
-Then the user should be logged in successfully
+  When the user send "<username>" and "<password>"
+  Then the user should be logged in successfully
 
   Examples:
     | username                  | password     |
@@ -14,8 +14,8 @@ Then the user should be logged in successfully
 
 
 Scenario Outline: Login user with invalid credentials
-When the user send "<username>" and "<password>"
-Then the user should see an "<errorMessage>"
+  When the user send "<username>" and "<password>"
+  Then the user should see an "<errorMessage>"
 
   Examples:
     | username                  | password     | errorMessage                                             |
@@ -24,8 +24,8 @@ Then the user should see an "<errorMessage>"
 
 
 Scenario Outline: Login user with empty credentials
-When the user send "<username>" and "<password>"
-Then the user should see an "<errorMessage>"
+  When the user send "<username>" and "<password>"
+  Then the user should see an "<errorMessage>"
 
   Examples:
     | username                  | password     | errorMessage |

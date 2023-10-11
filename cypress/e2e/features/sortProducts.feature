@@ -1,9 +1,9 @@
 Feature: Sort Products
 
 Scenario Outline: Sort products by price
-Given the user is logged in with "<username>" and "<password>"
-When the user sort products by "<order>"
-Then the products should be sorted by "<order>"
+  Given the user is logged in with "<username>" and "<password>"
+  When the user sort products by "<order>"
+  Then the products should be sorted by "<order>"
 
 
   Examples:
@@ -15,9 +15,9 @@ Then the products should be sorted by "<order>"
 
 
 Scenario Outline: Sort products by name
-Given the user is logged in with "<username>" and "<password>"
-When the user sort products by "<order>"
-Then the products should be sorted by "<order>"
+  Given the user is logged in with "<username>" and "<password>"
+  When the user sort products by "<order>"
+  Then the products should be sorted by "<order>"
 
 
   Examples:
