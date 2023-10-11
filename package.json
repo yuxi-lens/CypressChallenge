@@ -9,6 +9,7 @@
   "author": "Alejandro Lenis",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.1.0",
     "cypress": "^13.3.0",
     "typescript": "^5.2.2"
   },

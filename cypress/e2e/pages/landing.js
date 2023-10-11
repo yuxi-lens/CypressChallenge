@@ -7,6 +7,10 @@ class LandingPage {
     sortingSelect: "select.product_sort_container",
     priceLabels: "div.inventory_item_price",
     nameLabels: "div.inventory_item_name",
+    priceBar: "div.pricebar",
+    productContainer: "div.inventory_item_description",
+    productName: "div.inventory_item_name",
+    productDescription: "div.inventory_item_desc",
   };
 
   verifyProductsTitle(expected) {
@@ -45,6 +49,64 @@ class LandingPage {
           .every((item, index) => config.orders[direction](item, items[index]));
         expect(isInOrder).to.be.true;
       });
+  }
+
+  addProductToCart() {
+    let randomIndex;
+    let selectedProductName;
+    let selectedProductDescription;
+    let selectedProductPrice;
+
+    return cy
+      .get(this.locators.productContainer)
+      .its("length")
+      .then((len) => {
+        randomIndex = Math.floor(Math.random() * len);
+
+        cy.get(this.locators.productContainer)
+          .find(this.locators.productName)
+          .eq(randomIndex)
+          .invoke("text")
+          .then((name) => {
+            selectedProductName = name;
+
+            return cy
+              .get(this.locators.productContainer)
+              .find(this.locators.productDescription)
+              .eq(randomIndex)
+              .invoke("text");
+          })
+          .then((description) => {
+            selectedProductDescription = description;
+
+            return cy
+              .get(this.locators.productContainer)
+              .find(this.locators.priceLabels)
+              .eq(randomIndex)
+              .invoke("text");
+          })
+          .then((priceText) => {
+            selectedProductPrice = priceText;
+          });
+      })
+      .then(() => {
+        return cy
+          .get(this.locators.productContainer)
+          .find('button:contains("Add to cart")')
+          .eq(randomIndex)
+          .click()
+          .then(() => {
+            return {
+              productName: selectedProductName,
+              productDescription: selectedProductDescription,
+              productPrice: selectedProductPrice,
+            };
+          });
+      });
+  }
+
+  clickCartButton() {
+    cy.get(this.locators.shoppingCart).click();
   }
 }
 
