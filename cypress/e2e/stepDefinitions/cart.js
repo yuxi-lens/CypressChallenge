@@ -4,14 +4,16 @@ import CartPage from "../pages/cart";
 const cartPage = new CartPage();
 
 When("the user verify the product is in the cart", () => {
+  cy.get("@selectedProductName").then((productName) => {
+    cartPage.verifyProductNameByIndex(productName);
+  });
+
+  cy.get("@selectedProductDescription").then((productDescription) => {
+    cartPage.verifyProductDescriptionByIndex(productDescription);
+  });
+
   cy.get("@selectedProductPrice").then((productPrice) => {
-    cy.get("@selectedProductName").then((productName) => {
-      cy.get("@selectedProductDescription").then((productDescription) => {
-        cartPage.verifyProductPriceByIndex(productPrice);
-        cartPage.verifyProductNameByIndex(productName);
-        cartPage.verifyProductDescriptionByIndex(productDescription);
-      });
-    });
+    cartPage.verifyProductPriceByIndex(productPrice);
   });
 });
 

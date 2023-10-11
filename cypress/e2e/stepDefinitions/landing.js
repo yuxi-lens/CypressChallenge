@@ -24,6 +24,10 @@ When("the user add some products to the cart", () => {
   });
 });
 
+When("the user open a product detailed view", () => {
+  landingPage.openProductView();
+});
+
 Then("the user should be logged in successfully", () => {
   landingPage.verifyProductsTitle("Products");
   landingPage.verifyShoppingCartIsVisible();

@@ -14,17 +14,18 @@ When("the user fills the checkout information", () => {
 });
 
 When("the user confirms the product checkout information", () => {
-  cy.get("@selectedProductPrice").then((productPrice) => {
-    cy.get("@selectedProductName").then((productName) => {
-      cy.get("@selectedProductDescription").then((productDescription) => {
-        checkoutPage.verifyProductDetailsByIndex(
-          productPrice,
-          productName,
-          productDescription
-        );
-      });
-    });
+  cy.get("@selectedProductName").then((productName) => {
+    checkoutPage.verifyProductNameByIndex(productName);
   });
+
+  cy.get("@selectedProductDescription").then((productDescription) => {
+    checkoutPage.verifyProductDescriptionByIndex(productDescription);
+  });
+
+  cy.get("@selectedProductPrice").then((productPrice) => {
+    checkoutPage.verifyProductPriceByIndex(productPrice);
+  });
+
   checkoutPage.verifyProductTotal();
   checkoutPage.clickFinishButton();
 });

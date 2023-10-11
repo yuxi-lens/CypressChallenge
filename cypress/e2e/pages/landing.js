@@ -188,6 +188,13 @@ class LandingPage {
   clickCartButton() {
     cy.get(this.locators.shoppingCart).click();
   }
+
+  openProductView() {
+    cy.get(this.locators.productName).then((productNames) => {
+      const randomIndex = Math.floor(Math.random() * productNames.length);
+      cy.wrap(productNames).eq(randomIndex).click();
+    });
+  }
 }
 
 export default LandingPage;

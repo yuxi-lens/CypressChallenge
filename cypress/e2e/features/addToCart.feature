@@ -36,7 +36,8 @@ Scenario Outline: Purchase multiple products from general view
 
 Scenario Outline: Purchase one product from detailed view
     Given the user is logged in with "<username>" and "<password>"
-    When the user add a product to the cart
+    When the user open a product detailed view
+    And the user add the product to the cart
     And the user verify the product is in the cart
     And the user navigates to the checkout page
     And the user fills the checkout information
