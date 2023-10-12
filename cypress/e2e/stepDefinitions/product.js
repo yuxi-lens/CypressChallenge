@@ -20,3 +20,11 @@ When("the user add the product to the cart", () => {
   });
   landingPage.clickCartButton();
 });
+
+When("the user add multiple products from detailed view", () => {
+  productPage
+    .addMultipleProductsToCartFromDetails()
+    .then((selectedProducts) => {
+      cy.wrap(selectedProducts).as("selectedProducts");
+    });
+});

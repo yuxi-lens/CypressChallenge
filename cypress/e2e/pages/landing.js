@@ -6,7 +6,6 @@ class LandingPage {
     shoppingCart: "a.shopping_cart_link",
     sortingSelect: "select.product_sort_container",
     priceLabels: "div.inventory_item_price",
-    nameLabels: "div.inventory_item_name",
     priceBar: "div.pricebar",
     productContainer: "div.inventory_item_description",
     productName: "div.inventory_item_name",
