@@ -8,7 +8,7 @@ export const SORT_CONFIGS = {
     },
   },
   Name: {
-    locator: "nameLabels",
+    locator: "productName",
     parser: (text) => text.trim(),
     orders: {
       "A to Z": (a, b) => a.localeCompare(b) >= 0,
