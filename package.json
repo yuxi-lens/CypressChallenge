@@ -4,13 +4,26 @@
   "description": "Cypress Yuxi Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress run --headed"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:login": "cypress run --env TAGS=\"@login\"",
+    "cypress:sort": "cypress run --env TAGS=\"@sorting\"",
+    "cypress:purchase": "cypress run --env TAGS=\"@purchase\"",
+    "cypress:login:headed": "cypress run --headed --env TAGS=\"@login\"",
+    "cypress:sort:headed": "cypress run --headed --env TAGS=\"@sorting\"",
+    "cypress:purchase:headed": "cypress run --headed --env TAGS=\"@purchase\"",
+    "cypress:login:chrome": "cypress run --browser chrome --env TAGS=\"@login\"",
+    "cypress:sort:chrome": "cypress run --browser chrome --env TAGS=\"@sorting\"",
+    "cypress:purchase:chrome": "cypress run --browser chrome --env TAGS=\"@purchase\""
   },
   "author": "Alejandro Lenis",
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
     "cypress": "^13.3.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
@@ -19,6 +32,7 @@
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/e2e/stepDefinitions/*.js",
+    "nonGlobalStepDefinitions": true,
     "filterSpecs": true,
     "omitFiltered": true
   }

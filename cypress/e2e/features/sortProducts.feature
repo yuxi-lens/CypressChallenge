@@ -1,3 +1,4 @@
+@sorting
 Feature: Sort Products
 
 Scenario Outline: Sort products by price

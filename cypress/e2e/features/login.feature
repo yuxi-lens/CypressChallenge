@@ -1,3 +1,4 @@
+@login
 Feature: Login
 
 Background: Navigate to Login Page

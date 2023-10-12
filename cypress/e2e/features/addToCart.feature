@@ -1,3 +1,4 @@
+@purchase
 Feature: Purchase Products
 
 Scenario Outline: Purchase one product from general view
