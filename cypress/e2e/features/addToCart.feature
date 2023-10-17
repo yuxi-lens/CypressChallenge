@@ -31,12 +31,8 @@ Scenario Outline: Purchase multiple products from general view
 
 Scenario Outline: Purchase one product from detailed view
     Given the user is logged in with "<username>" and "<password>"
-    When the user open a product detailed view
-    And the user add the product to the cart
-    And the user verify the product is in the cart
-    And the user navigates to the checkout page
-    And the user fills the checkout information
-    And the user confirms the product checkout information
+    When the user add the product to the cart from the detail view
+    And the user completes the purchase process
     Then confirmation order message will be displayed
 
 
@@ -50,10 +46,7 @@ Scenario Outline: Purchase one product from detailed view
 Scenario Outline: Purchase multiple products from detailed view
     Given the user is logged in with "<username>" and "<password>"
     When the user add multiple products from detailed view
-    And the user verify the products are in the cart
-    And the user navigates to the checkout page
-    And the user fills the checkout information
-    And the user confirms the products checkout information
+    And the user completes the purchase process
     Then confirmation order message will be displayed
 
 

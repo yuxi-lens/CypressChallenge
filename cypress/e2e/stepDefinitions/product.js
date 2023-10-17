@@ -5,19 +5,25 @@ import LandingPage from "../pages/landing";
 const productPage = new ProductPage();
 const landingPage = new LandingPage();
 
-When("the user add the product to the cart", () => {
+When("the user add the product to the cart from the detail view", () => {
+  landingPage.openProductView();
   productPage.clickAddToCartButton();
+
+  let productDetails = {};
+
   productPage.captureProductName().then((productName) => {
-    cy.wrap(productName).as("selectedProductName");
+    productDetails.productName = productName;
+
+    productPage.captureProductDescription().then((productDescription) => {
+      productDetails.productDescription = productDescription;
+
+      productPage.captureProductPrice().then((productPrice) => {
+        productDetails.productPrice = productPrice;
+        cy.wrap([productDetails]).as("selectedProducts");
+      });
+    });
   });
 
-  productPage.captureProductDescription().then((productDescription) => {
-    cy.wrap(productDescription).as("selectedProductDescription");
-  });
-
-  productPage.captureProductPrice().then((productPrice) => {
-    cy.wrap(productPrice).as("selectedProductPrice");
-  });
   landingPage.clickCartButton();
 });
 
