@@ -8,10 +8,11 @@ When("the user sort products by {string}", (order) => {
 });
 
 When("the user add a product to the cart", () => {
-  landingPage.addProductToCart().then((productDetails) => {
-    cy.wrap(productDetails.productPrice).as("selectedProductPrice");
-    cy.wrap(productDetails.productName).as("selectedProductName");
-    cy.wrap(productDetails.productDescription).as("selectedProductDescription");
+  landingPage.addProductToCart().then((productDetailsList) => {
+    const productsArray = Array.isArray(productDetailsList)
+      ? productDetailsList
+      : [productDetailsList];
+    cy.wrap(productsArray).as("selectedProducts");
   });
 
   landingPage.clickCartButton();

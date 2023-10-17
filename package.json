@@ -6,6 +6,7 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "cypress:run:headed": "cypress run --headed",
     "cypress:login": "cypress run --env TAGS=\"@login\"",
     "cypress:sort": "cypress run --env TAGS=\"@sorting\"",
     "cypress:purchase": "cypress run --env TAGS=\"@purchase\"",
